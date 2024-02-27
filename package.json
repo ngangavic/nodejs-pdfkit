@@ -1,0 +1,26 @@
+{
+  "name": "nodejs-pdf",
+  "version": "1.0.0",
+  "description": "Create PDF using pdfkit",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ngangavic/nodejs-pdfkit.git"
+  },
+  "keywords": [
+    "pdfkit",
+    "NodeJS"
+  ],
+  "author": "ngangavic",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ngangavic/nodejs-pdfkit/issues"
+  },
+  "homepage": "https://github.com/ngangavic/nodejs-pdfkit#readme",
+  "dependencies": {
+    "pdfkit": "^0.14.0"
+  }
+}
