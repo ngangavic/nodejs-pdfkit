@@ -1,6 +1,8 @@
 const fs = require('fs');
 const PDFDocument = require('pdfkit');
 const blobStream = require('blob-stream');
+const nodemailer = require("nodemailer");
+
 
 function createPDF(data, path) {
     let doc = new PDFDocument({ margin: 50 });
@@ -12,17 +14,38 @@ function createPDF(data, path) {
 
 
     doc.pipe(fs.createWriteStream(path));
-    const stream = doc.pipe(blobStream());
     doc.end();
-    stream.on('finish', function () {
-        // get a blob you can do whatever you like with
-        const blob = stream.toBlob('application/pdf');
-        console.log(blob);
 
-        // or get a blob URL for display in the browser
-        // const url = stream.toBlobURL('application/pdf');
-        // iframe.src = url;
+    const transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+            user: '',
+            pass: ''
+        }
     });
+
+    let buffers = []
+    doc.on("data", buffers.push.bind(buffers))
+    doc.on("end", () => {
+        let pdfData = new Uint8Array(Buffer.concat(buffers))
+        // resolve(pdfData)
+        var message = {
+            from: "email@from.com",
+            to: "email@to.com",
+            subject: "Test PDF",
+            text: "Test PDF",
+            html: "<p>test pdf</p>",
+            attachments: [
+                {
+                    filename: 'invoice.pdf',
+                    content: pdfData
+                }
+            ]
+        };
+        transporter.sendMail(message)
+    })
 
 }
 
