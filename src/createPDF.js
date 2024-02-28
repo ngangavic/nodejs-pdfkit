@@ -1,6 +1,5 @@
 const fs = require('fs');
 const PDFDocument = require('pdfkit');
-const blobStream = require('blob-stream');
 const nodemailer = require("nodemailer");
 
 
